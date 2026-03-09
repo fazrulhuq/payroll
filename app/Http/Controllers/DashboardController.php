@@ -10,10 +10,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $employees = Employee::count();
-        $attendance = Attendance::whereDate('date', today())->count();
-        $payroll = Payroll::count();
+        $totalEmployees = Employee::count();
+        $presentToday = Attendance::whereDate('date', today())->where('status', 'present')->count();
+        $monthlyPayroll = Payroll::where('month', date('Y-m'))->sum('net_salary');
+        $pendingTasks = 0; // You can implement this based on your business logic
 
-        return view('dashboard', compact('employees','attendance','payroll'));
+        return view('dashboard', compact('totalEmployees', 'presentToday', 'monthlyPayroll', 'pendingTasks'));
     }
 }

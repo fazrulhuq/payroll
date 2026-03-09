@@ -1,113 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<head>
+        <title>{{ config('app.name', 'Payroll System') }}</title>
 
-<title>Payroll System</title>
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body class="font-sans antialiased bg-gray-50">
+        <div class="min-h-screen flex flex-col">
+            <!-- Sidebar (fixed) -->
+            @include('layouts.sidebar')
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+            <!-- Main content (with margin for sidebar) -->
+            <div class="flex-1 flex flex-col md:ml-64">
+                <!-- Top Navigation -->
+                @include('layouts.topnav')
 
-<link rel="stylesheet"
-href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+                <!-- Page Heading -->
+                @if (isset($header))
+                    <header class="bg-white shadow-sm border-b border-gray-200">
+                        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            {{ $header }}
+                        </div>
+                    </header>
+                @endif
 
-</head>
-
-
-<body class="hold-transition sidebar-mini">
-
-<div class="wrapper">
-
-<!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
-
-<ul class="navbar-nav">
-<li class="nav-item">
-<a class="nav-link" data-widget="pushmenu" href="#">☰</a>
-</li>
-</ul>
-
-</nav>
-
-
-<!-- Sidebar -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-
-<a href="/" class="brand-link text-center">
-<span class="brand-text font-weight-light">Payroll System</span>
-</a>
-
-<div class="sidebar">
-
-<nav>
-
-<ul class="nav nav-pills nav-sidebar flex-column">
-
-<li class="nav-item">
-<a href="/" class="nav-link">
-Dashboard
-</a>
-</li>
-
-<li class="nav-item">
-<a href="/employees" class="nav-link">
-Employees
-</a>
-</li>
-
-<li class="nav-item">
-<a href="/attendance" class="nav-link">
-Attendance
-</a>
-</li>
-
-<li class="nav-item">
-<a href="/payroll" class="nav-link">
-Payroll
-</a>
-</li>
-
-</ul>
-
-</nav>
-
-</div>
-
-</aside>
-
-
-<!-- Content -->
-<div class="content-wrapper p-3">
-
-@if(session('success'))
-<div class="alert alert-success">
-{{ session('success') }}
-</div>
-@endif
-
-@yield('content')
-
-</div>
-
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-
-<script>
-$('.datatable').DataTable();
-</script>
-
-</body>
+                <!-- Page Content -->
+                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
+                    <div class="container mx-auto px-6 py-8">
+                        {{ $slot }}
+                    </div>
+                </main>
+            </div>
+        </div>
+    </body>
 </html>

@@ -1,86 +1,83 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-gray-900">Attendance Management</h2>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                Mark Attendance
+            </button>
+        </div>
+    </x-slot>
 
-@section('content')
+    <div class="space-y-6">
+        <!-- Attendance Form -->
+        <div class="bg-white shadow-sm rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">Mark Attendance</h3>
+            </div>
+            <div class="p-6">
+                <form method="POST" action="/attendance" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    @csrf
 
-<div class="card">
+                    <div>
+                        <label for="employee_id" class="block text-sm font-medium text-gray-700">Employee</label>
+                        <select name="employee_id" id="employee_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            @foreach($employees as $emp)
+                                <option value="{{ $emp->id }}">{{ $emp->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-<div class="card-header">
-Attendance
-</div>
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                        <input type="date" name="date" id="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ date('Y-m-d') }}">
+                    </div>
 
-<div class="card-body">
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                        <select name="status" id="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <option value="present">Present</option>
+                            <option value="absent">Absent</option>
+                        </select>
+                    </div>
 
-<form method="POST" action="/attendance" class="row mb-4">
+                    <div class="flex items-end">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                            Save Attendance
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-@csrf
-
-<div class="col-md-3">
-
-<select name="employee_id" class="form-control">
-
-@foreach($employees as $emp)
-<option value="{{ $emp->id }}">
-{{ $emp->name }}
-</option>
-@endforeach
-
-</select>
-
-</div>
-
-<div class="col-md-3">
-<input type="date" name="date"
-class="form-control">
-</div>
-
-<div class="col-md-3">
-<select name="status"
-class="form-control">
-<option value="present">Present</option>
-<option value="absent">Absent</option>
-</select>
-</div>
-
-<div class="col-md-2">
-<button class="btn btn-primary">
-Save
-</button>
-</div>
-
-</form>
-
-<table class="table table-bordered datatable">
-
-<thead>
-
-<tr>
-<th>Employee</th>
-<th>Date</th>
-<th>Status</th>
-</tr>
-
-</thead>
-
-<tbody>
-
-@foreach($attendance as $row)
-
-<tr>
-
-<td>{{ $row->employee->name }}</td>
-<td>{{ $row->date }}</td>
-<td>{{ $row->status }}</td>
-
-</tr>
-
-@endforeach
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-@endsection
+        <!-- Attendance Records -->
+        <div class="bg-white shadow-sm rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">Attendance Records</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($attendance as $row)
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $row->employee->name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $row->date }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $row->status === 'present' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                        {{ ucfirst($row->status) }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
