@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\CompanyController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -31,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile',[ProfileController::class,'update'])->name('profile.update');
 
     Route::delete('/profile',[ProfileController::class,'destroy'])->name('profile.destroy');
+    Route::resource('companies', CompanyController::class);
 
 });
 
