@@ -14,6 +14,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="mt-8 flex-grow flex flex-col">
             <nav class="flex-1 px-2 space-y-1">
                 <!-- Dashboard -->
@@ -52,6 +53,66 @@
                     </svg>
                     Payroll
                 </a>
+                <!-- Masters Section -->
+<div class="mt-6">
+
+<p class="px-2 text-xs font-semibold text-blue-200 uppercase tracking-wider">
+Masters
+</p>
+
+<!-- Companies -->
+<a href="{{ route('companies.index') }}"
+class="group flex items-center px-2 py-2 text-sm font-medium rounded-md 
+{{ str_contains($currentRoute, 'companies') ? 'bg-blue-900 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }}">
+
+<svg class="mr-3 h-6 w-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M3 7h18M3 12h18M3 17h18" />
+</svg>
+
+Companies
+</a>
+
+<!-- Account Types -->
+<a href="{{ route('account-types.index') }}"
+class="group flex items-center px-2 py-2 text-sm font-medium rounded-md 
+{{ str_contains($currentRoute, 'account-types') ? 'bg-blue-900 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }}">
+
+<svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5l5 5v11a2 2 0 01-2 2z"/>
+</svg>
+
+Account Types
+</a>
+
+<!-- Account Groups -->
+<a href="{{ route('account-groups.index') }}"
+class="group flex items-center px-2 py-2 text-sm font-medium rounded-md 
+{{ str_contains($currentRoute, 'account-groups') ? 'bg-blue-900 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }}">
+
+<svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M3 7h18M3 12h18M3 17h18"/>
+</svg>
+
+Account Groups
+</a>
+
+<!-- Ledger Accounts -->
+<a href="{{ route('accounts.index') }}"
+class="group flex items-center px-2 py-2 text-sm font-medium rounded-md 
+{{ str_contains($currentRoute, 'accounts') ? 'bg-blue-900 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white' }}">
+
+<svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"/>
+</svg>
+
+Ledger Accounts
+</a>
+
+</div>
             </nav>
         </div>
     </div>

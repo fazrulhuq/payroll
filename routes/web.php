@@ -7,6 +7,9 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AccountTypeController;
+use App\Http\Controllers\AccountGroupController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -33,6 +36,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/profile',[ProfileController::class,'destroy'])->name('profile.destroy');
     Route::resource('companies', CompanyController::class);
+    Route::resource('accounts', AccountController::class);
+    Route::resource('account-types', AccountTypeController::class);
+    Route::resource('account-groups', AccountGroupController::class);
 
 });
 
